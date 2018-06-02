@@ -1,6 +1,11 @@
 package main
 
-import 	"fmt"
+import 	(
+	"fmt"
+	"learning_go/object"
+	"learning_go/subject"
+	"learning_go/verb"
+)
 
 func main() {
 	fmt.Println("Hello World")
@@ -12,6 +17,7 @@ func main() {
 	inner := outer("Thanakorn")
 	innerString := inner()
 	fmt.Println(innerString)
+	fmt.Println(subject.Var, verb.Var, object.Var)
 }
 
 func hello(s string) {
