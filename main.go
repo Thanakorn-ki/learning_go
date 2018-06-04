@@ -8,25 +8,38 @@ import (
 	"net/http"
 )
 
+// Vertex demo
 type Vertex struct {
 	x int
 	y int
 }
 
 // User return array
-type User []struct {
+type User struct {
 	UserID  int
 	ID      int
 	Caption string `json:"title" xml:"title"`
 	Body    string
 }
 
+// Users is array
+type Users []User
 type customer struct {
 	ID string
 }
 
+const (
+	a = iota
+	b
+	c
+	d
+	e
+	f
+	g
+)
+
 func (cus customer) String() {
-	fmt.Sprintf("thanakorn" + cus.ID)
+	fmt.Println("My name is Thanakorn")
 }
 
 func main() {
@@ -34,9 +47,9 @@ func main() {
 	// fmt.Println("TEST", v)
 	// fmt.Println(v.x)
 	// fmt.Println(v.y)
-	var cus customer
-	cus.ID = "1111"
-	cus.String()
+	// var cus customer
+	// cus.String()
+	fmt.Println(g)
 	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(fetch("https://jsonplaceholder.typicode.com/posts"))
 	})
@@ -44,7 +57,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8081", nil))
 }
 
-func fetch(url string) User {
+func fetch(url string) Users {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		log.Fatal(err)
@@ -58,7 +71,7 @@ func fetch(url string) User {
 	}
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
-	var u User
+	var u Users
 	err = json.Unmarshal(body, &u)
 	if err != nil {
 		log.Fatal(err)
